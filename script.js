@@ -108,3 +108,13 @@ class UI {
 
 // Show stored books event
 document.addEventListener("DOMContentLoaded", UI.showBooks);
+
+// Stuff For Progressive Web App (PWA)
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").then(reg => {
+      console.log("Service worker registered.", reg);
+    });
+  });
+}
+
