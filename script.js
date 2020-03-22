@@ -108,7 +108,7 @@ class UI {
 
 // Show stored books event
 // document.addEventListener("DOMContentLoaded", UI.showBooks);
-window.onload(UI.showBooks);
+window.onload = UI.showBooks();
 
 // Stuff For Progressive Web App (PWA)
 if ("serviceWorker" in navigator) {
