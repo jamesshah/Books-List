@@ -37,7 +37,7 @@ searchBtn.addEventListener("click", e => {
         console.log(book.volumeInfo.imageLinks.thumbnail);
         card_output = `	
 						<div class="card">
-							<img class="card-img-top h-50 w-50 mx-auto px-1" src="${book.volumeInfo.imageLinks.smallThumbnail}" alt="Card image cap">
+							<img class="card-img-top h-50 w-50 mx-auto px-1" src="${book.volumeInfo.imageLinks.smallThumbnail}" alt="${book.volumeInfo.title}">
 							<div class="card-body">
 						  		<h5 class="card-title">Title: ${book.volumeInfo.title}</h5>
 						  		<p class="card-text">Author: ${book.volumeInfo.authors[0]}</p>
@@ -117,4 +117,3 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
-
