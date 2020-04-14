@@ -3,6 +3,10 @@ const form = document.getElementById("form");
 const searchBox = document.getElementById("searchBox");
 const searchBtn = document.getElementById("searchBtn");
 
+if (location.protocol !== 'https:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+}
+
 class Book {
   constructor(title, author, info) {
     this.title = title;
