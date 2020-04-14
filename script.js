@@ -3,7 +3,7 @@ const form = document.getElementById("form");
 const searchBox = document.getElementById("searchBox");
 const searchBtn = document.getElementById("searchBtn");
 
-window.onload = funtion(){
+window.onload = function(){
 	if (location.protocol !== 'https:') {
     		location.replace(`https:${location.href.substring(location.protocol.length)}`);
 	}
