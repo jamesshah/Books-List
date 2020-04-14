@@ -3,12 +3,6 @@ const form = document.getElementById("form");
 const searchBox = document.getElementById("searchBox");
 const searchBtn = document.getElementById("searchBtn");
 
-window.onload = function(){
-	if (location.protocol !== 'https:') {
-    		location.replace(`https:${location.href.substring(location.protocol.length)}`);
-	}
-};
-
 class Book {
   constructor(title, author, info) {
     this.title = title;
@@ -40,10 +34,11 @@ searchBtn.addEventListener("click", e => {
       books.slice(0, 4).forEach(book => {
         console.log(book.volumeInfo.title);
         console.log(book.volumeInfo.authors[0]);
-        console.log(book.volumeInfo.imageLinks.thumbnail);
+        console.log(book.volumeInfo.imageLinks.thumbnail..substring(4));
+	const src = book.volumeInfo.imageLinks.thumbnail.substring(4);
         card_output = `	
 						<div class="card">
-							<img class="card-img-top h-50 w-50 mx-auto px-1" src="${book.volumeInfo.imageLinks.smallThumbnail}" alt="${book.volumeInfo.title}">
+							<img class="card-img-top h-50 w-50 mx-auto px-1" src="https${src}" alt="${book.volumeInfo.title}">
 							<div class="card-body">
 						  		<h5 class="card-title">Title: ${book.volumeInfo.title}</h5>
 						  		<p class="card-text">Author: ${book.volumeInfo.authors[0]}</p>
