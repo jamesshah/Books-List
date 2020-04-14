@@ -34,7 +34,7 @@ searchBtn.addEventListener("click", e => {
       books.slice(0, 4).forEach(book => {
         console.log(book.volumeInfo.title);
         console.log(book.volumeInfo.authors[0]);
-        console.log(book.volumeInfo.imageLinks.thumbnail..substring(4));
+        console.log(book.volumeInfo.imageLinks.thumbnail.substring(4));
 	const src = book.volumeInfo.imageLinks.thumbnail.substring(4);
         card_output = `	
 						<div class="card">
