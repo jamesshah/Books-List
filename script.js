@@ -14,12 +14,9 @@ class Book {
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
   UI.clearBookList();
-  console.log(searchBox.value);
   if (searchBox.value === "") {
-    console.log(searchBox.value);
     UI.showAlert("Please enter a valid book name.", "danger");
   } else {
-    console.log(searchBox.value);
     let name = searchBox.value;
     trimmed_name = name.toLowerCase().replace(/\s+/g, "-");
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${trimmed_name}`)
@@ -27,19 +24,10 @@ searchBtn.addEventListener("click", (e) => {
         return res.json();
       })
       .then(function (data) {
-        //The following three lines get only first book result.
-        // console.log(data.items[0].volumeInfo.title);
-        // console.log(data.items[0].volumeInfo.authors[0]);
-        // console.log(data.items[0].volumeInfo.imageLinks.thumbnail);
-
-        //The follwoing code gets all the book results.
-        books = data.items;
+        const books = data.items;
         books.slice(0, 4).forEach((book) => {
-          console.log(book.volumeInfo.title);
-          console.log(book.volumeInfo.authors[0]);
-          console.log(book.volumeInfo.imageLinks.thumbnail.substring(4));
           const src = book.volumeInfo.imageLinks.thumbnail.substring(4);
-          card_output = `	
+          const card_output = `	
 						<div class="card">
 							<img class="card-img-top h-50 w-50 mx-auto px-1" src="https${src}" alt="${book.volumeInfo.title}">
 							<div class="card-body">
@@ -51,7 +39,7 @@ searchBtn.addEventListener("click", (e) => {
 		    `;
           bookslist.innerHTML += card_output;
         });
-        buttons = document.querySelectorAll("#resulted_book");
+        const buttons = document.querySelectorAll("#resulted_book");
 
         Array.from(buttons).forEach((button) => {
           button.addEventListener("click", (e) => {
@@ -91,10 +79,16 @@ class Storage {
 
   // Delete a book from local storage
   static removeBook(title, author) {
+    console.log("in remove books");
+    console.log(title.replace(/\s+/g, "").toLowerCase());
     const books = Storage.getBooks();
-    console.log(books);
     books.forEach((book, index) => {
-      if (book.title == title && book.author == author) {
+      if (
+        (book.title.replace(/\s+/g, "").toLowerCase() ==
+          title.replace(/\s+/g, "").toLowerCase()) &
+        (book.author.replace(/\s+/g, "").toLowerCase() ==
+          author.replace(/\s+/g, "").toLowerCase())
+      ) {
         books.splice(index, 1);
       }
     });
@@ -107,7 +101,6 @@ class UI {
   //Display book in the book-list table
   static showBooks() {
     const books = Storage.getBooks();
-
     books.forEach((book) => UI.addBooks(book));
   }
 
@@ -163,19 +156,15 @@ document.querySelector("#books-list").addEventListener("click", (e) => {
   // Remove book from UI
   UI.deleteBook(e.target);
 
-  console.log(
+  const title =
     e.target.parentElement.previousElementSibling.previousElementSibling
-      .previousElementSibling.textContent,
+      .previousElementSibling.textContent;
+  const author =
     e.target.parentElement.previousElementSibling.previousElementSibling
-      .textContent
-  );
+      .textContent;
+
   // Remove book from store
-  Storage.removeBook(
-    e.target.parentElement.previousElementSibling.previousElementSibling
-      .previousElementSibling.textContent,
-    e.target.parentElement.previousElementSibling.previousElementSibling
-      .textContent
-  );
+  Storage.removeBook(title, author);
 
   // Show success message
   UI.showAlert("Book Removed", "success");
